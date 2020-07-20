@@ -1,0 +1,43 @@
+name: Auto-update
+on:
+  repository_dispatch:
+    types: [web-update]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        path: main
+    - name: Setup Hugo
+      uses: peaceiris/actions-hugo@v2
+      with:
+        hugo-version: '0.74.2'
+        extended: true
+    - name: Checkout source
+      uses: actions/checkout@v2
+      with:
+        repository: ${{ github.event.client_payload.repository }}
+        token: ${{ secrets.AUTOBUILD_REPO_PAT }}
+        ref: ${{ github.event.client_payload.ref }}
+        path: client
+
+    - name: Build
+      run: |
+        pwd
+        cd client
+        ls
+        hugo --minify --cleanDestinationDir
+    - name: Replace
+      run: |
+        pwd
+        rm -rf main/${{ github.event.client_payload.short }}
+        mv client/public main/${{ github.event.client_payload.short }}
+        cd main
+        git config user.name autobuild
+        git config user.email noreply@github.com
+        git add -A
+        git commit -m "Update pages"
+        git push
