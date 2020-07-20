@@ -33,8 +33,8 @@ jobs:
     - name: Replace
       run: |
         pwd
-        rm -rf main/${{ github.event.client_payload.short }}
-        mv client/public main/${{ github.event.client_payload.short }}
+        rm -rf main/${{ github.event.client_payload.repository_name }}
+        mv client/public main/${{ github.event.client_payload.repository_name }}
         cd main
         git config user.name autobuild
         git config user.email noreply@github.com
