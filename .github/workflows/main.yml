@@ -23,19 +23,22 @@ jobs:
         token: ${{ secrets.AUTOBUILD_REPO_PAT }}
         ref: ${{ github.event.client_payload.ref }}
         path: client
-
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install Python deps
+      run: |
+        python -m pip install -r client/requirements.txt
     - name: Build
       run: |
-        pwd
         cd client
-        ls
-        hugo --minify --cleanDestinationDir
+        ${{ github.event.client_payload.build_command }}
     - name: Replace
       run: |
-        pwd
         rm -rf main/${{ github.event.client_payload.repository_name }}
-        mv client/public main/${{ github.event.client_payload.repository_name }}
+        mv client/${{ github.event.client_payload.site_location }}/public main/${{ github.event.client_payload.repository_name }}
         cd main
-        git config user.name autobuild
-        git config user.email noreply@github.com
+        git config user.name 'github-actions[bot]'
+        git config user.email 'github-actions[bot]@users.noreply.github.com'
         test -z "$(git status --porcelain)" || (git add -A && git commit -m "Update pages" && git push)
