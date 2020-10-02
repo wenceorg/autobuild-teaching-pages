@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MPI on PHYS52015 – Introduction to HPC</title><link>https://teaching.wence.uk/phys52015/notes/mpi/</link><description>Recent content in MPI on PHYS52015 – Introduction to HPC</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://teaching.wence.uk/phys52015/notes/mpi/index.xml" rel="self" type="application/rss+xml"/><item><title>Point-to-point messaging</title><link>https://teaching.wence.uk/phys52015/notes/mpi/mpi-ptp/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://teaching.wence.uk/phys52015/notes/mpi/mpi-ptp/</guid><description>MPI: a messaging API # Motivation
+What is it
+How does it work
+Some API
+Point to point basics</description></item><item><title>Collectives</title><link>https://teaching.wence.uk/phys52015/notes/mpi/mpi-collectives/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://teaching.wence.uk/phys52015/notes/mpi/mpi-collectives/</guid><description>MPI collectives # Motivation
+What is it
+How does it work
+Some API
+Collectives basics
+Where next?</description></item><item><title>Advanced topics</title><link>https://teaching.wence.uk/phys52015/notes/mpi/mpi-advanced/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://teaching.wence.uk/phys52015/notes/mpi/mpi-advanced/</guid><description>Some pointers to advanced features # Communicator manipulation
+MPI-IO
+One-sided communication
+Non-blocking collectives
+Neighbourhood collectives</description></item></channel></rss>
