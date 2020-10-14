@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en-GB">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Coding conventions for Python in the Durham CS degree" />
+
+    <title>Python coding style</title>
+    <link rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous" />
+    <link rel="stylesheet" href="./local.css" />
+  </head>
+
+  <body>
+    <div class="container mt-5">
+      <h1>Coding style for Python CS submissions</h1>
+      <p>
+        Coursework submissions of Python code in
+        the <a href="https://www.dur.ac.uk/computer.science/">department</a>
+        are often <em>automatically</em> checked for style
+        conventions. The coursework rubric will specify exactly how
+        many marks are allocated to this portion.
+      </p>
+
+      <p>
+        This document briefly describes the rationale for enforcing a
+        common coding style and provides details of <em>how</em> style
+        will be checked (so that you can check your own code).
+      </p>
+
+      <div class="mx-auto col-11 d-block">
+        <div class="border rounded-lg px-2 pt-1 pb-0 alert-info" role="alert">
+          <h4 class="alert-heading">Applicability</h4>
+          <p>
+            Individual coursework submission rubrics will say whether or
+            not these style conventions will be required. It is good
+            practice to follow them in any case.
+          </p>
+        </div>
+      </div>
+
+      <h2>Rationale</h2>
+
+      <p>
+        The goal of adopting coding style conventions is to improve
+        readability and consistency across large codebases. By
+        adopting things like consistent naming conventions, the
+        amount of brainpower that someone reading the code must expend
+        in remembering &ldquo;trivial&rdquo; details is reduced. It allows the
+        reader to focus on details of the algorithm.
+      </p>
+
+      <p>
+        This becomes more important when working with others, learning
+        how to apply coding conventions as a matter of course is good
+        preparation for any future software engineering you might do.
+      </p>
+
+      <h2>Adopted conventions</h2>
+      <p>
+        We follow the style and naming conventions described in <a
+        href="https://www.python.org/dev/peps/pep-0008/">PEP-8</a>.
+        This is a long document that provides guidance along with
+        rationale. We will check things automatically using <a
+        href="https://flake8.pycqa.org/en/latest/"><code>flake8</code></a>,
+        along with the <a href="https://github.com/PyCQA/pep8-naming"><code>pep8-naming</code></a>
+        plugin to check naming conventions.
+      </p>
+
+      <h2>Automatic checking in your editor</h2>
+      <p>
+        Most modern Python editors have a mechanism for configuring an
+        external tool to check and mark style errors &ldquo;live&rdquo;. That way
+        you can notice and fix errors as they occur. This list is not
+        exhaustive but covers some popular editors.
+      </p>
+
+      <ul>
+        <li><a href="https://code.visualstudio.com">VSCode</a> has <a
+        href="https://code.visualstudio.com/docs/python/linting">builtin
+        support</a>, you just need to configure it to use
+        <code>flake8</code>.
+        </li>
+        <li><a href="https://www.jetbrains.com/pycharm/">PyCharm</a>
+        also has builtin <a
+        href="https://www.jetbrains.com/pycharm/features/coding_assistance.html">PEP-8
+        support</a>.</li>
+        <li>For <a href="https://neovim.io">Neovim</a>, you'll need to
+        install the <a
+        href="https://github.com/nvie/vim-flake8">vim-flake8</a>
+        plugin.</li>
+        <li>
+          For <a href="https://www.gnu.org/s/emacs/">Emacs</a>, see
+          the <a
+          href="https://www.emacswiki.org/emacs/PythonProgrammingInEmacs">relevant
+          page</a> on the Emacs wiki.
+        </li>
+      </ul>
+
+      <h2>Automated reformatting of your code</h2>
+      <p>
+        As well as running the style checkers and correcting errors,
+        there are also packages that automatically apply reformatting.
+        These include <a
+        href="https://pypi.org/project/autopep8/"><code>autopep8</code></a>
+        and <a
+        href="https://pypi.org/project/black/"><code>black</code></a>.
+        If you are migrating existing code to a new style, these may
+        be useful. Before submission you should still check that your
+        code passes the test described below.
+      </p> 
+
+      <div class="mx-auto col-11 d-block">
+        <div class="border rounded-lg px-2 pt-1 pb-0 alert-danger" role="alert">
+          <h4 class="alert-heading">Warning</h4>
+          <p>
+            Note that neither of these packages fix any naming convention
+            errors that your code might have, they only fix the formatting
+            aspects.
+          </p>
+        </div>
+      </div>
+
+      <h2>
+        Setting up style-checking
+      </h2>
+      <p>
+        You should be using Python 3 (since support for Python 2 was
+        dropped in early 2020). The simplest way to install the
+        necessary Python packages is to use a <a
+        href="https://docs.python.org/3/library/venv.html">virtual
+        environment</a>. The following sequence of commands create a
+        virtual environment named <code>check-style</code> in the
+        current directory. This assumes you are using a Unix system
+        with the bash shell (the <code>$</code> sign indicates a
+        prompt that you should not type), see <a
+        href="https://docs.python.org/3/library/venv.html#creating-virtual-environments">the
+        documentation</a> for more details on creation and activation
+        on other platforms.
+      </p>
+
+      <div class="mx-auto col-11 d-block">
+        <pre class="text-nowrap font-lock-default border rounded-lg">
+          <samp class="d-block py-1 px-2">
+            $ python3 -m venv check-style<br />
+            $ source check-style/bin/activate</br />
+            (check-style) $
+          </samp>
+        </pre>
+      </div>
+
+      <p>
+        Your prompt should have changed to include
+        <code>(check-style)</code> at the beginning. We'll now use <a
+        href="https://pypi.org/project/pip/">pip</a> to install the
+        required packages.
+      </p>
+
+      <p>
+        We will use the following set of packages (with pinned
+        versions for consistency across the year).
+      </p>
+
+      <div class="mx-auto col-11 d-block">
+        <pre class="text-nowrap font-lock-default border rounded-lg">
+          <code class="d-block py-1 px-2">
+            flake8==3.8.2<br />
+            flake8-polyfill==1.0.2<br />
+            importlib-metadata==1.6.0<br />
+            mccabe==0.6.1<br />
+            pep8-naming==0.10.0<br />
+            pycodestyle==2.6.0<br />
+            pyflakes==2.2.0<br />
+            zipp==3.1.0
+          </code>
+        </pre>
+      </div>
+
+      <p>
+        To install them all, download
+        <a href="requirements.txt"><code>requirements.txt</code></a>
+        which contains the above and run
+      </p>
+
+      <div class="mx-auto col-11 d-block">
+        <pre class="text-nowrap font-lock-default border rounded-lg">
+          <samp class="d-block py-1 px-2">
+            (check-style) $ pip install -r requirements.txt<br />
+            (check-style) $
+          </samp>
+        </pre>
+      </div>
+
+      <p>
+        You should now have a <code>flake8</code> binary available. It
+        can be used to check style for either a single file
+        <code>flake8 path/to/file.py</code>, or an entire directory
+        (and subdirectories) <code>flake8 path/to/directory</code>.
+      </p>
+
+      <p>
+        To use the checker, you will either need to activate the
+        <code>check-style</code> environment, <em>or</em> you can
+        provide an absolute path to the <code>flake8</code> binary
+        (this is useful if configuring your editor and you don't
+        always want the <code>check-style</code> environment active).
+      </p>
+
+      <h3>If you use conda</h3>
+      <p>
+        If you use <a
+        href="https://docs.conda.io/projects/conda/en/latest/index.html">conda</a>
+        for installing Python and managing packages, you should create
+        the environment with <code>conda create check-style</code>,
+        activate it with <code>conda activate check-style</code> and
+        then proceed to install the required packages with
+        <code>pip</code> as before.
+      </p>
+
+      <h2 id="jupyter">Inside <a href="https://jupyter.org">Jupyter</a> notebooks</h2>
+      <p>
+        For checking style inside Jupyter notebooks, you should
+        install the same packages in your environment as above. In
+        addition you should install the <a
+        href="https://github.com/mattijn/pycodestyle_magic"><code>pycodestyle_magic</code></a>
+        notebook extension.
+      </p>
+
+      <div class="mx-auto col-11 d-block">
+        <pre class="text-nowrap font-lock-default border rounded-lg">
+          <samp class="d-block py-1 px-2">
+            (check-style) $ pip install jupyter pycodestyle_magic
+          </samp>
+        </pre>
+      </div>
+
+      <p>
+      You should then add the following two lines to the first cell of your notebook.
+      </p>
+
+      <div class="mx-auto col-11 d-block">
+        <pre class="text-nowrap font-lock-default border rounded-lg">
+          <samp class="d-block py-1 px-2">
+            %load_ext pycodestyle_magic<br />
+            %flake8_on
+          </samp>
+        </pre>
+      </div>
+
+      <p>
+        Having done this, upon executing a cell in Jupyter, you
+        receive a warning message about any style violations.
+      </p>
+
+      <h3>An example Jupyter session</h3>
+      <p>
+        A brief example of the output we would see if everything was
+        installed correctly (note that the colour scheme may be
+        different in your notebook).
+      </p>
+
+      <div class="row mx-auto mb-1">
+        <div class="col-1 ml-auto pr-1 mr-0">
+          <pre class="text-nowrap text-info">
+            In [1]:
+          </pre>
+        </div>
+        <div class="col-10 ml-0 pl-1 mr-auto">
+          <pre class="text-nowrap border rounded-lg p-1 m-0 bg-light">
+            <code class="d-block">
+              <span class="font-lock-comment"># These &ldquo;magics&rdquo; load the pycodestyle extension and <br /># turn on flake8 checking in all cells.</span><br />
+              %load_ext pycodestyle_magic<br />
+              %flake8_on
+            </code>
+          </pre>
+        </div>
+      </div>
+
+      <div class="row mx-auto mb-1">
+        <div class="col-1 ml-auto pr-1 mr-0">
+          <pre class="text-nowrap text-info">
+            In [2]:
+          </pre>
+        </div>
+        <div class="col-10 ml-0 pl-1 mr-auto">
+          <pre class="text-nowrap border rounded-lg p-1 m-0 bg-light">
+            <code class="d-block bg-light">
+              <span class="font-lock-keyword">class</span> <span class="font-lock-type-name">My_Class</span>(object):<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;<span class="font-lock-keyword">pass</span><br />
+                  <br />
+              <span class="font-lock-keyword">def</span> <span class="font-lock-function-name">concatStrings</span>(s1, s2):<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;s3 = s1 + s2<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;<span class="font-lock-keyword">return</span> s1
+            </code>
+          </pre>
+        </div>
+      </div>
+
+      <div class="row mx-auto mb-1">
+        <div class="col-1 ml-auto pr-1 mr-1"></div>
+        <div class="col-10 ml-0 pl-1 mr-auto">
+          <pre class="text-nowrap text-dark border rounded-lg p-1 m-0 alert-danger">
+            <code class="d-block">
+              1:8: N801 class name 'My_Class' should use CapWords convention<br />
+              4:1: E302 expected 2 blank lines, found 1<br />
+              4:6: N802 function name 'concatStrings' should be lowercase<br />
+              5:5: F841 local variable 's3' is assigned to but never used
+            </code>
+          </pre>
+        </div>
+      </div>
+
+      <div class="row mx-auto mb-1">
+        <div class="col-1 ml-auto pr-1 mr-1">
+          <pre class="text-nowrap text-info">
+            In [3]:
+          </pre>
+        </div>
+        <div class="col-10 ml-0 pl-1 mr-auto">
+          <pre class="text-nowrap border rounded-lg p-1 m-0 bg-light">
+            <code class="d-block language-python bg-light">
+              <span class="font-lock-keyword">class</span> <span class="font-lock-type-name">MyClass</span>(object):<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;<span class="font-lock-keyword">pass</span><br />
+              <br />
+              <br />
+              <span class="font-lock-keyword">def</span> <span class="font-lock-function-name">concat_strings</span>(s1, s2):<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;s3 = s1 + s2<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;<span class="font-lock-keyword">return</span> s3
+            </code>
+          </pre>
+        </div>
+      </div>
+
+      <h2>How code will be checked</h2>
+      <p>
+        With the virtual environment setup of the previous section,
+        your code will be checked for style errors by running
+      </p>
+
+      <div class="mx-auto col-11 d-block">
+        <pre class="text-nowrap font-lock-default border rounded-lg">
+          <samp class="d-block py-1 px-2">
+            (check-style) $ flake8 .<br />
+            (check-style) $
+          </samp>
+        </pre>
+      </div>
+
+      <p>
+        That is, all the Python files that you submit will be checked for
+        errors.
+      </p>
+
+      <p>
+        In Jupyter notebooks, style will be checked using the <a
+        href="https://github.com/mattijn/pycodestyle_magic"><code>pycodestyle_magic</code></a>
+        extension as <a href="#jupyter">described above</a>.
+      </p>
+
+      <h2>An example</h2>
+      <p>
+        Let's see this in action with some example bad code. The
+        errors that we see here are non-exhaustive, detailed
+        explanations of flake8 error codes, with examples for each, are
+        <a href="https://www.flake8rules.com">collated here</a>.
+        Consider a file <code>errors.py</code> with the following contents
+      </p>
+
+      <div class="mx-auto col-11 d-block">
+        <pre class="text-nowrap font-lock-default border rounded-lg">
+          <code class="d-block py-1 px-2">
+            <span class="font-lock-keyword">import</span> numpy<br />
+            <br />
+            <br />
+            <span class="font-lock-keyword">class</span> <span class="font-lock-type-name">My_Class</span>(object):<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="font-lock-keyword">pass</span><br />
+            <br />
+            <span class="font-lock-keyword">def</span> <span class="font-lock-function-name">concatStrings</span>(s1, s2):<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;s3 = s1 + s2<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="font-lock-keyword">return</span> s2
+          </code>
+        </pre>
+      </div>
+
+      <p>
+        Running <code>flake8</code> on this program produces the following output
+      </p>
+
+      <div class="mx-auto col-11 d-block">
+        <pre class="text-nowrap font-lock-default border rounded-lg">
+          <samp class="d-block py-1 px-2">
+            (check-style) $ flake8 errors.py<br />
+            errors.py:1:1: <a href="https://www.flake8rules.com/rules/F401.html">F401</a> 'numpy' imported but unused<br />
+            errors.py:4:8: N801 class name 'My_Class' should use CapWords convention<br />
+            errors.py:7:1: <a href="https://www.flake8rules.com/rules/E302.html">E302</a> expected 2 blank lines, found 1<br />
+            errors.py:7:6: N802 function name 'concatStrings' should be lowercase<br />
+            errors.py:8:5: <a href="https://www.flake8rules.com/rules/F841.html">F841</a> local variable 's3' is assigned to but never used<br />
+            (check-style) $
+          </samp>
+        </pre>
+      </div>
+
+      <p>
+        We read this as follows. The first section reports
+        <code>filename:line-number:column</code>, telling us where the
+        error occurs. The error message then tells us what the type of
+        the error is, and provides a short explanation.
+        A version of the code obeying style conventions is as follows
+      </p>
+
+      <div class="mx-auto col-11 d-block">
+        <pre class="text-nowrap font-lock-default border rounded-lg">
+          <code class="d-block py-1 px-2">
+            <span class="font-lock-keyword">class</span> <span class="font-lock-type-name">MyClass</span>(object):<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="font-lock-keyword">pass</span><br />
+            <br />
+            <br />
+            <span class="font-lock-keyword">def</span> <span class="font-lock-function-name">concat_strings</span>(s1, s2):<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;s3 = s1 + s2<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="font-lock-keyword">return</span> s3
+          </code>
+        </pre>
+      </div>
+
+      <p>
+        If we now run <code>flake8</code> on the updated code, we should
+        see no errors reported.
+      </p>
+
+      <div class="mx-auto col-11 d-block">
+        <pre class="text-nowrap font-lock-default border rounded-lg">
+          <samp class="d-block py-1 px-2">
+            (check-style) $ flake8 errors.py<br />
+            (check-style) $
+          </samp>
+        </pre>
+      </div>
+    </div>
+  </body>
+</html>

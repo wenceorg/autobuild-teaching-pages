@@ -1,0 +1,29 @@
+p {
+    text-align: justify;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    hyphens: auto;
+}
+
+.font-lock-comment {
+    color:#40883f;
+}
+
+.font-lock-keyword {
+    color:#989848;
+}
+.font-lock-string {
+    color:#b85c57;
+}
+.font-lock-function-name {
+    font-weight: bold;
+}
+.font-lock-type-name {
+    color:#0287c8;
+    font-weight: bold;
+}
+
+.font-lock-default {
+    background: #ffffe8;
+    color: #424242;
+}
