@@ -6,4 +6,8 @@ The notebook is also available online without installing python.
 finite-differences After the lecture a video recording has been placed on duo. The video is now available at: video</description></item><item><title/><link>https://teaching.wence.uk/comp4187/lectures/lecture3/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://teaching.wence.uk/comp4187/lectures/lecture3/</guid><description>We will be moving on to the next notebook during the next lecture. Before the lecture it would be good if you can download the next ipython notebook and run it. You can see jupyter for instructions on how to run the notebook.
 Alternatively, you can run the notebook online without installing python.
 finite-differences The video is now available at: video
-The content of the whiteboard can be found below.</description></item></channel></rss>
+The content of the whiteboard can be found below.</description></item><item><title/><link>https://teaching.wence.uk/comp4187/lectures/lecture4/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://teaching.wence.uk/comp4187/lectures/lecture4/</guid><description>In this lecture we will finish covering efficient matrix storage from: ipython notebook.
+Alternatively, you can run the notebook online without installing python.
+finite-differences After that we will start discussing efficient solvers for linear systems. This lecture will cover smoothers: ipython notebook.
+Alternatively, you can run the notebook online without installing python.
+smoothers-intro After the lecture have a look at the corresponding exercise.</description></item></channel></rss>
