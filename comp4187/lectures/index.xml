@@ -11,6 +11,8 @@ Alternatively, you can run the notebook online without installing python.
 finite-differences After that we will start discussing efficient solvers for linear systems. This lecture will cover smoothers: ipython notebook.
 Alternatively, you can run the notebook online without installing python.
 smoothers-intro After the lecture have a look at the corresponding exercise.
-The video is now available at: video</description></item><item><title>Lecture 5: Smoothers</title><link>https://teaching.wence.uk/comp4187/lectures/lecture5/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://teaching.wence.uk/comp4187/lectures/lecture5/</guid><description>This lecture will cover smoothers: ipython notebook.
+The video is now available at: video</description></item><item><title>Lecture 5: Multigrid</title><link>https://teaching.wence.uk/comp4187/lectures/lecture6/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://teaching.wence.uk/comp4187/lectures/lecture6/</guid><description>We continue with the multigrid method: ipython notebook</description></item><item><title>Lecture 5: Smoothers</title><link>https://teaching.wence.uk/comp4187/lectures/lecture5/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://teaching.wence.uk/comp4187/lectures/lecture5/</guid><description>This lecture will cover smoothers: ipython notebook.
 Alternatively, you can run the notebook online without installing python.
-smoothers-intro</description></item></channel></rss>
+smoothers-intro We also started on the multigrid method: ipython notebook
+The video is now available at: video
+The content of the whiteboard can be found below. It is also all contained in the ipython notebook itself.</description></item></channel></rss>
