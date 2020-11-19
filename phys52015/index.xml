@@ -26,11 +26,9 @@ VS Code # VS Code has an extension for remote editing which allows you to edit f
 We&amp;rsquo;ll then also benchmark the performance of the different approaches to see if there are any differences
 Template code and benchmarking # In openmp-snippets/reduction-template.c is some code that times how long it takes to run the reduction.</description></item><item><title>MPI: Calculating π</title><link>https://teaching.wence.uk/phys52015/exercises/mpi-pi/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://teaching.wence.uk/phys52015/exercises/mpi-pi/</guid><description>Simple MPI parallelism # In this exercise we&amp;rsquo;re going to compute an approximation to the value of π using a simple Monte Carlo method. We do this by noticing that if we randomly throw darts at a square, the fraction of the time they will fall within the incircle approaches π.
 Consider a square with side-length \(2r\) and an inscribed circle with radius \(r\).
-Square with inscribed circle</description></item><item><title>Point-to-point messaging</title><link>https://teaching.wence.uk/phys52015/notes/mpi/mpi-ptp/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://teaching.wence.uk/phys52015/notes/mpi/mpi-ptp/</guid><description>MPI: a messaging API # Motivation
-What is it
-How does it work
-Some API
-Point to point basics</description></item><item><title>Collectives</title><link>https://teaching.wence.uk/phys52015/notes/mpi/mpi-collectives/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://teaching.wence.uk/phys52015/notes/mpi/mpi-collectives/</guid><description>MPI collectives # Motivation
+Square with inscribed circle</description></item><item><title>Point-to-point messaging in MPI</title><link>https://teaching.wence.uk/phys52015/notes/mpi/point-to-point/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://teaching.wence.uk/phys52015/notes/mpi/point-to-point/</guid><description>Pairwise message exchange # The simplest form of communication in MPI is a pairwise exchange of a message between two processes.
+In MPI, communication via messages is two-sided1. That is, for every message one process sends, there must be a matching receive call by another process.
+Let&amp;rsquo;s look at an example. Suppose we have two processes, and we want to send a message from rank 0 to rank 1.</description></item><item><title>Collectives</title><link>https://teaching.wence.uk/phys52015/notes/mpi/mpi-collectives/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://teaching.wence.uk/phys52015/notes/mpi/mpi-collectives/</guid><description>MPI collectives # Motivation
 What is it
 How does it work
 Some API
