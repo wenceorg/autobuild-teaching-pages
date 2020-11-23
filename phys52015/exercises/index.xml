@@ -14,4 +14,5 @@ Square with inscribed circle</description></item><item><title>MPI: halo exchange
 The natural thing to do here is to divide the work up between processes (much as we did for the OpenMP version).
 Let&amp;rsquo;s have a look at what this would look like.
 Decomposition of a 2D image into nine pieces
-Remember that in MPI, each process has its own memory space.</description></item></channel></rss>
+Remember that in MPI, each process has its own memory space.</description></item><item><title>MPI: ping-pong latency</title><link>https://teaching.wence.uk/phys52015/exercises/mpi-ping-pong/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://teaching.wence.uk/phys52015/exercises/mpi-ping-pong/</guid><description>Measuring point-to-point message latency with ping-pong # In this exercise we will write a simple code that does a message ping-pong: sending a message back and forth between two processes.
+We can use this to measure both the latency and bandwidth of the network on our supercomputer. Which are both important measurements when we&amp;rsquo;re looking at potential parallel performance: they help us to decide if our code is running slowly because of our bad choices, or limitations in the hardware.</description></item></channel></rss>
