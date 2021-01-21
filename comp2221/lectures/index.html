@@ -34,8 +34,23 @@ purposes) and we haven&rsquo;t defined equality on it yet.</p></li><li><p>2021-0
 the Maybe datatype. We looked a little bit at polymorphism, and I
 touched on constraining polymorphic functions (more next time!),
 when we considered</p><div class=highlight><pre style=color:#272822;background-color:#fafafa><code class=language-hs data-lang=hs><span style=color:#75af00>chopPrefix</span> <span style=color:#f92672>::</span> <span style=color:#00a8c8>Eq</span> <span style=color:#111>a</span> <span style=color:#f92672>=&gt;</span> <span style=color:#111>[</span><span style=color:#111>a</span><span style=color:#111>]</span> <span style=color:#f92672>-&gt;</span> <span style=color:#111>[</span><span style=color:#111>a</span><span style=color:#111>]</span> <span style=color:#f92672>-&gt;</span> <span style=color:#00a8c8>Maybe</span> <span style=color:#111>[</span><span style=color:#111>a</span><span style=color:#111>]</span>
-</code></pre></div><p>Much more to come!</p></li></ul></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/wenceorg/comp2221/commit/dd0ed39e5a70d8aaaeb957a2ea24ec38eec81c78 title="Last modified by Lawrence Mitchell | January 19, 2021" target=_blank rel=noopener><img src=/comp2221/svg/calendar.svg class=book-icon alt=Calendar>
-<span>January 19, 2021</span></a></div><div><a class="flex align-center" href=https://github.com/wenceorg/comp2221/edit/main/site/content/lectures/_index.md target=_blank rel=noopener><img src=/comp2221/svg/edit.svg class=book-icon alt=Edit>
+</code></pre></div><p>Much more to come!</p></li><li><p>2021-01-21: <a href=https://teaching.wence.uk/comp2221/slides/2020-21/Lec03a.pdf>Annotated slides</a>,
+<a href="https://durham.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=7e061c40-b269-4879-ba02-acb700d9784d">video</a>,
+<a href=https://teaching.wence.uk/comp2221/code/lectures/Lec04.hs>code</a></p><p>We revisited the <code>chopPrefix</code> example and looked at a little bit of
+theory for different types of polymorphism. The <a href=https://en.wikipedia.org/wiki/Polymorphism_%28computer_science%29>wikipedia
+page</a>
+has a nice overview as usual. The classic work on subtyping is from
+<a href=https://en.wikipedia.org/wiki/Barbara_Liskov>Barbara Liskov</a>
+from 1987. The method that Haskell uses for constrained (ad-hoc)
+polymorphism based on type classes was introduced by <a href=http://homepages.inf.ed.ac.uk/wadler/>Phil Wadler</a>
+and <a href=https://www.computing.dcu.ie/~sblott/>Stephen Blott</a> in <a href=http://homepages.inf.ed.ac.uk/wadler/topics/type-classes.html#class><em>How
+to make ad-hoc polymorphism less ad
+hoc</em></a>.
+<a href="https://www.youtube.com/watch?v=6COvD8oynmI">Here&rsquo;s a video</a> of
+Simon Peyton Jones giving an introductory talk on type classes and
+their implementation in GHC.</p><p>We introduced some example type classes and how we implement them
+for our own types.</p></li></ul></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/wenceorg/comp2221/commit/124419538879ba58b9c1646f982ce6bfb65ce383 title="Last modified by Lawrence Mitchell | January 21, 2021" target=_blank rel=noopener><img src=/comp2221/svg/calendar.svg class=book-icon alt=Calendar>
+<span>January 21, 2021</span></a></div><div><a class="flex align-center" href=https://github.com/wenceorg/comp2221/edit/main/site/content/lectures/_index.md target=_blank rel=noopener><img src=/comp2221/svg/edit.svg class=book-icon alt=Edit>
 <span>Edit this page</span></a></div></div><div class="flex flex-wrap align-right"><p>© 2021&ndash; <a href=mailto:lawrence@wence.uk>Lawrence Mitchell</a> & <a href=https://www.dur.ac.uk/>Durham University</a>.</p><p><a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/><img alt="Creative Commons License" style=border-width:0 src=/comp2221/cc-by-sa.svg></a>
 This work is licensed under a <a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/>Creative
 Commons Attribution-ShareAlike 4.0 International License</a>.</p></div></footer><label for=menu-control class="hidden book-menu-overlay"></label></div></main></body></html>
