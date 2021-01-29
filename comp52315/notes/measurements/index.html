@@ -1,9 +1,9 @@
 <!doctype html><html lang=en dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Performance measurements #  So far, we&rsquo;ve seen the roofline model, and observed that for floating point code, it allows us to get a high-level view of what coarse step we should be taking to improve the performance of our algorithm.
 Now suppose that we do a roofline analysis for our code, we observe that it should be limited by floating point throughput, but we are nowhere near the roof."><meta name=theme-color content="#FFFFFF"><meta property="og:title" content="Measurement and profiling"><meta property="og:description" content="Performance measurements #  So far, we&rsquo;ve seen the roofline model, and observed that for floating point code, it allows us to get a high-level view of what coarse step we should be taking to improve the performance of our algorithm.
-Now suppose that we do a roofline analysis for our code, we observe that it should be limited by floating point throughput, but we are nowhere near the roof."><meta property="og:type" content="article"><meta property="og:url" content="https://teaching.wence.uk/comp52315/notes/measurements/"><meta property="article:modified_time" content="2021-01-26T18:16:35+00:00"><title>Measurement and profiling | COMP52315 – Performance Engineering</title><link rel=icon href=/comp52315/favicon.svg type=image/x-icon><link rel=stylesheet href=/comp52315/book.min.0cb0b7d6a1ed5d0e95321cc15edca4d6e9cc406149d1f4a3f25fd532f6a3bb38.css integrity="sha256-DLC31qHtXQ6VMhzBXtyk1unMQGFJ0fSj8l/VMvajuzg="><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css integrity=sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js integrity=sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4 crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js integrity=sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false},{left:"\\(",right:"\\)",display:false},{left:"\\[",right:"\\]",display:true}]})});</script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
-<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><nav><div class=book-brand><img class=book-center src=/comp52315/logo.svg alt=Logo><h2><a href=/comp52315>COMP52315 – Performance Engineering</a></h2></div><ul><li><span>Administrivia</span><ul><li><a href=/comp52315/setup/contact/>Contact details</a></li><li><a href=/comp52315/setup/hamilton/>Hamilton accounts</a></li><li><a href=/comp52315/setup/configuration/>ssh configuration</a></li><li><a href=/comp52315/setup/unix/>Unix resources</a></li></ul></li><li><span>Exercises</span><ul><li><a href=/comp52315/exercises/exercise01/>Sum reductions</a></li><li><a href=/comp52315/exercises/exercise02/>Caches</a></li><li><a href=/comp52315/exercises/exercise03/>Memory bandwidth</a></li><li><a href=/comp52315/exercises/exercise04/>Roofline analysis</a></li><li><a href=/comp52315/exercises/exercise05/>Models and measurements</a></li><li><a href=/comp52315/exercises/exercise06/>Profiling</a></li><li><a href=/comp52315/exercises/exercise07/>Loop tiling matrix transpose</a></li><li><a href=/comp52315/exercises/exercise08/>Loop tiling matrix-matrix multiplication</a></li><li><a href=/comp52315/exercises/exercise09/>Compiler feedback and the BLIS DGEMM</a></li><li><a href=/comp52315/exercises/exercise10/>Stencil layer conditions</a></li></ul></li><li><span>Notes</span><ul><li><a href=/comp52315/notes/introduction/>Introduction</a></li><li><a href=/comp52315/notes/memory/>The memory hierarchy</a></li><li><a href=/comp52315/notes/roofline/>Performance models: roofline</a></li><li><a href=/comp52315/notes/measurements/ class=active>Measurement and profiling</a></li></ul></li><li><a href=/comp52315/coursework/>Coursework: fast finite elements</a><ul></ul></li><li><a href=/comp52315/resources/>Further resources</a></li><li><a href=/comp52315/acknowledgements/>Acknowledgements</a></li></ul></nav><script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/comp52315/svg/menu.svg class=book-icon alt=Menu></label>
+Now suppose that we do a roofline analysis for our code, we observe that it should be limited by floating point throughput, but we are nowhere near the roof."><meta property="og:type" content="article"><meta property="og:url" content="https://teaching.wence.uk/comp52315/notes/measurements/"><meta property="article:modified_time" content="2021-01-29T18:12:27+00:00"><title>Measurement and profiling | COMP52315 – Performance Engineering</title><link rel=icon href=/comp52315/favicon.svg type=image/x-icon><link rel=stylesheet href=/comp52315/book.min.0cb0b7d6a1ed5d0e95321cc15edca4d6e9cc406149d1f4a3f25fd532f6a3bb38.css integrity="sha256-DLC31qHtXQ6VMhzBXtyk1unMQGFJ0fSj8l/VMvajuzg="><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css integrity=sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js integrity=sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4 crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js integrity=sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa crossorigin=anonymous></script><script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false},{left:"\\(",right:"\\)",display:false},{left:"\\[",right:"\\]",display:true}]})});</script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><nav><div class=book-brand><img class=book-center src=/comp52315/logo.svg alt=Logo><h2><a href=/comp52315>COMP52315 – Performance Engineering</a></h2></div><ul><li><span>Administrivia</span><ul><li><a href=/comp52315/setup/contact/>Contact details</a></li><li><a href=/comp52315/setup/hamilton/>Hamilton accounts</a></li><li><a href=/comp52315/setup/configuration/>ssh configuration</a></li><li><a href=/comp52315/setup/unix/>Unix resources</a></li></ul></li><li><span>Exercises</span><ul><li><a href=/comp52315/exercises/exercise01/>Sum reductions</a></li><li><a href=/comp52315/exercises/exercise02/>Caches</a></li><li><a href=/comp52315/exercises/exercise03/>Memory bandwidth</a></li><li><a href=/comp52315/exercises/exercise04/>Roofline analysis</a></li><li><a href=/comp52315/exercises/exercise05/>Models and measurements</a></li><li><a href=/comp52315/exercises/exercise06/>Profiling</a></li><li><a href=/comp52315/exercises/exercise07/>Loop tiling matrix transpose</a></li><li><a href=/comp52315/exercises/exercise08/>Loop tiling matrix-matrix multiplication</a></li><li><a href=/comp52315/exercises/exercise09/>Compiler feedback and the BLIS DGEMM</a></li><li><a href=/comp52315/exercises/exercise10/>Stencil layer conditions</a></li></ul></li><li><span>Notes</span><ul><li><a href=/comp52315/notes/introduction/>Introduction</a></li><li><a href=/comp52315/notes/memory/>The memory hierarchy</a></li><li><a href=/comp52315/notes/roofline/>Performance models: roofline</a></li><li><a href=/comp52315/notes/measurements/ class=active>Measurement and profiling</a></li><li><a href=/comp52315/notes/tiling/>Cache blocking/tiling</a></li></ul></li><li><a href=/comp52315/coursework/>Coursework: fast finite elements</a><ul></ul></li><li><a href=/comp52315/resources/>Further resources</a></li><li><a href=/comp52315/acknowledgements/>Acknowledgements</a></li></ul></nav><script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/comp52315/svg/menu.svg class=book-icon alt=Menu></label>
 <strong>Measurement and profiling</strong>
-<label for=toc-control><img src=/comp52315/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#performance-measurements>Performance measurements</a><ul><li><a href=#performance-counters>Performance counters</a><ul><li><a href=#grouping-metrics>Grouping metrics</a></li><li><a href=#a-first-example>A first example</a><ul><li><a href=#scalar>Scalar</a></li><li><a href=#sse>SSE</a></li><li><a href=#avx>AVX</a></li><li><a href=#avx2>AVX2</a></li></ul></li></ul></li><li><a href=#profiling>Profiling</a></li><li><a href=#top-down-methodology>&ldquo;Top-down&rdquo; methodology</a></li></ul></li></ul></nav></aside></header><article class=markdown><h1 id=performance-measurements>Performance measurements
+<label for=toc-control><img src=/comp52315/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#performance-measurements>Performance measurements</a><ul><li><a href=#performance-counters>Performance counters</a><ul><li><a href=#grouping-metrics>Grouping metrics</a></li><li><a href=#a-first-example>A first example</a><ul><li><a href=#scalar>Scalar</a></li><li><a href=#sse>SSE</a></li><li><a href=#avx>AVX</a></li><li><a href=#avx2>AVX2</a></li></ul></li></ul></li><li><a href=#profiling>Profiling</a><ul><li><a href=#sample-based-profiling>Sample-based profiling</a></li><li><a href=#instrumentation-based-profiling>Instrumentation-based profiling</a></li><li><a href=#where-next>Where next</a></li></ul></li></ul></li></ul></nav></aside></header><article class=markdown><h1 id=performance-measurements>Performance measurements
 <a class=anchor href=#performance-measurements>#</a></h1><p>So far, we&rsquo;ve seen the <a href=https://teaching.wence.uk/comp52315/notes/roofline/>roofline</a> model,
 and observed that for floating point code, it allows us to get a
 high-level view of what coarse step we should be taking to improve the
@@ -112,10 +112,109 @@ here (recall
 from last term). The other parts of the code may become important
 after doing some optimisation, but we should start with the largest
 chunk.</p><p>There are broadly-speaking two variants of profiling, <em>sampling</em>-based
-and <em>instrumentation</em>-based.</p><h2 id=top-down-methodology>&ldquo;Top-down&rdquo; methodology
-<a class=anchor href=#top-down-methodology>#</a></h2><section class=footnotes role=doc-endnotes><hr><ol><li id=fn:1 role=doc-endnote><p>This completely made up example came out right first time when I
-mashed the keyboard to get these numbers. <a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li></ol></section></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/wenceorg/comp52315/commit/fb213823e3290cc48ec3b72481cbc1c1cc6176e3 title="Last modified by Lawrence Mitchell | January 26, 2021" target=_blank rel=noopener><img src=/comp52315/svg/calendar.svg class=book-icon alt=Calendar>
-<span>January 26, 2021</span></a></div><div><a class="flex align-center" href=https://github.com/wenceorg/comp52315/edit/main/site/content//notes/measurements.md target=_blank rel=noopener><img src=/comp52315/svg/edit.svg class=book-icon alt=Edit>
+and <em>instrumentation</em>-based.</p><h3 id=sample-based-profiling>Sample-based profiling
+<a class=anchor href=#sample-based-profiling>#</a></h3><p>The basic idea here is that I run my code and periodically poke it to
+ask &ldquo;what part of the code is currently executing?&rdquo;. Depending on how
+exactly you compiled code (did it include debug symbols: <code>-g</code> in the
+compile flags or not?), you might only get information about which
+lines of assembly are taking all the time, or you might also see a
+call graph (with function names). Generally speaking, I therefore
+recommend compiling with debug symbols.</p><blockquote class="book-hint info"><span><p>You should make sure that optimisation flags come textually after
+debug symbols in your compiler flags</p><pre><code>icc -g -OPTIMISATION_FLAGS_HERE ...
+</code></pre></span></blockquote><p>Sample-based profiling records the state it observes the code in every
+time it it prods it. It then builds a statistical model of the code
+execution. That is, it estimates the probability distribution of
+observing the code in a routine $A$ over its lifetime. The total
+estimated time spent in each routine is then the runtime of the
+program multiplied by the probability that the code is in routine $A$.</p><figure style=width:70%><img class=scaled src=https://teaching.wence.uk/comp52315/images/manual/samplingprofile.svg alt="A sampling profiler interrupts the program periodically to check which function it is in."><figcaption><p>A sampling profiler interrupts the program periodically to check which function it is in.</p></figcaption></figure><p>Sample-based profiling is very low overhead, and typically
+non-intrusive. However, we do not observe the complete behaviour. It
+is also not very suitable to short-running applications (although do
+we care about their performance?). We might get call-graph
+information, or an approximation thereto (that is, which function is
+called from which).</p><p>In terms of tools, the <a href=https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/vtune-profiler.html>Intel
+VTune</a>
+suite (available on Hamilton) has a sample-based profiling mode.
+On most Linux systems, the <a href=http://perf.wiki.kernel.org>perf</a>
+kernel-level profiler is a available (unfortunately not on Hamilton).
+There is a large infrastructure of tools around it, I like the
+<a href=https://github.com/andikleen/pmu-tools/>pmu-tools</a> developed by Andi
+Kleen.</p><h3 id=instrumentation-based-profiling>Instrumentation-based profiling
+<a class=anchor href=#instrumentation-based-profiling>#</a></h3><p>This is often the next step after sample-based profiling has allowed
+you to narrow down to a particular region of the code. Reasons for
+doing this are so that we can take more detailed measurements, or
+avoid &ldquo;irrelevant&rdquo; measurements from other parts of the code polluting
+our profile.</p><p>The high-level picture of how this works is that we annotate the
+source code (either manually, or automatically with some tool) in the
+places we think are &ldquo;interesting&rdquo;.</p><figure style=width:70%><img class=scaled src=https://teaching.wence.uk/comp52315/images/manual/tracingprofile.svg alt="Instrumentation-based profiles measure events that have been annotated as &amp;lsquo;interesting&amp;rsquo;"><figcaption><p>Instrumentation-based profiles measure events that have been annotated as &lsquo;interesting&rsquo;</p></figcaption></figure><p>For example, when using the likwid tool, we often want to know
+performance-counter information at a loop level (rather than whole
+program). The likwid approach to this is to have a <a href=https://github.com/RRZE-HPC/likwid/wiki/TutorialMarkerC>&ldquo;marker
+API&rdquo;</a>, we
+annotate the parts of the code we&rsquo;re interested in with open and close
+tags. All of the counts within the tags are agglomerated into the same
+region</p><div class=highlight><pre style=color:#272822;background-color:#fafafa><code class=language-c data-lang=c><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;likwid.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e></span><span style=color:#111>...</span>
+<span style=color:#00a8c8>void</span> <span style=color:#111>some_expensive_function</span><span style=color:#111>(...)</span>
+<span style=color:#111>{</span>
+  <span style=color:#111>LIKWID_MARKER_START</span><span style=color:#111>(</span><span style=color:#d88200>&#34;Loop1&#34;</span><span style=color:#111>);</span>
+  <span style=color:#111>first_loops</span><span style=color:#111>;</span>
+  <span style=color:#111>LIKWID_MARKER_END</span><span style=color:#111>(</span><span style=color:#d88200>&#34;Loop1&#34;</span><span style=color:#111>);</span>
+  <span style=color:#111>something_unimportant</span><span style=color:#111>;</span>
+  <span style=color:#111>LIKWID_MARKER_START</span><span style=color:#111>(</span><span style=color:#d88200>&#34;Loop2&#34;</span><span style=color:#111>);</span>
+  <span style=color:#111>second_loops</span><span style=color:#111>;</span>
+  <span style=color:#111>LIKWID_MARKER_END</span><span style=color:#111>(</span><span style=color:#d88200>&#34;Loop2&#34;</span><span style=color:#111>);</span>
+</code></pre></div><p>Reaching to likwid is something we do if we&rsquo;re already reasonably sure
+of where we want to look. For a universally-available approach to
+instrumentation based profiling (at least for C/C++ programs), we can
+always use <a href=https://sourceware.org/binutils/docs/gprof/>gprof</a>. The
+workflow is reasonably straightforward</p><blockquote class="book-hint info"><span><h4 id=gprof-workflow><code>gprof</code> workflow</h4><ol><li>Compile and link code with debug symbols (<code>-g</code>) and profiling
+information (<code>-pg</code>)</li><li>Run the code, which produces a file <code>gmon.out</code></li><li>Postprocess data with the <code>gprof</code> command</li><li>Look at results</li></ol></span></blockquote><p><code>gprof</code> can provide both a flat profile (which function takes the most
+time?) and a call-graph profile (where were expensive functions called
+from?). The latter is more useful in complex code, since it might be
+the case that calls to a function are cheap from one location but
+expensive from another.</p><p>For example, imagine a code that calls
+<a href=http://www.netlib.org/lapack/explore-html/d1/d54/group__double__blas__level3_gaeda3cbd99c8fb834a60a6412878226e1.html><code>dgemm</code></a>
+in two locations, once with tiny matrices, the other time with large
+ones.</p><div class=highlight><pre style=color:#272822;background-color:#fafafa><code class=language-c data-lang=c><span style=color:#00a8c8>void</span> <span style=color:#75af00>expensive_call</span><span style=color:#111>(...)</span>
+<span style=color:#111>{</span>
+  <span style=color:#111>...;</span>
+  <span style=color:#111>dgemm</span><span style=color:#111>(</span><span style=color:#111>REALLY_BIG_MATRICES</span><span style=color:#111>);</span>
+<span style=color:#111>}</span>
+
+<span style=color:#00a8c8>void</span> <span style=color:#75af00>cheap_call</span><span style=color:#111>(...)</span>
+<span style=color:#111>{</span>
+  <span style=color:#111>...;</span>
+  <span style=color:#111>dgemm</span><span style=color:#111>(</span><span style=color:#111>SMALL_MATRICES</span><span style=color:#111>);</span>
+<span style=color:#111>}</span>
+
+<span style=color:#111>...</span>
+<span style=color:#00a8c8>int</span> <span style=color:#111>main</span><span style=color:#111>(...)</span>
+<span style=color:#111>{</span>
+  <span style=color:#111>expensive_call</span><span style=color:#111>(...);</span>
+  <span style=color:#111>cheap_call</span><span style=color:#111>(...);</span>
+<span style=color:#111>}</span>
+</code></pre></div><p>We want to know to focus our efforts on the calls that are made to
+<code>dgemm</code> with large matrices. A flat profile hides this information.</p><blockquote class=exercise><h3>Exercise</h3><span><p>For specific usage instructions, the <a href=https://sourceware.org/binutils/docs/gprof/>gprof
+manual</a> is a good guide.</p><p><a href=https://teaching.wence.uk/comp52315/exercises/exercise06/>Exercise 6</a> has a walkthrough using
+gprof to find the right functions to look at for more detailed
+profiling in a small molecular dynamics application.</p></span></blockquote><h3 id=where-next>Where next
+<a class=anchor href=#where-next>#</a></h3><p>Having found the right parts of the code to look at, we can inspect
+the code to understand what it is doing. It is often worthwhile at
+this point running measurements for a range of input parameters, to
+see if we can observe the algorithmic scaling. For example, suppose
+there is some parameter that controls the resolution in the model
+(perhaps the total number of degrees of freedom). It is interesting to
+see how the profile changes when we vary this parameter. We might
+observe that the same part of the code is expensive in all cases, or
+maybe the performance bottleneck will move.</p><p>Let us suppose, though, that we have target parameters in mind. Having
+pinned down where to look, we need to understand the algorithm and
+should attempt to construct a model of how fast we think the code
+could run. We have seen a few ways how to do this, the roofline model
+provides a very coarse estimate. If we want more detail, we probably
+need to construct problem-specific models: hopefully the numerical
+method will be well-studied. Dense matrix-matrix multiplication is a
+good example, and we saw some analysis in <a href=https://teaching.wence.uk/comp52315/lecture-slides/05.pdf>lecture 5</a>.</p><section class=footnotes role=doc-endnotes><hr><ol><li id=fn:1 role=doc-endnote><p>This completely made up example came out right first time when I
+mashed the keyboard to get these numbers. <a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li></ol></section></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/wenceorg/comp52315/commit/5bb5ffcac0fdcbf322245f855222902330bed615 title="Last modified by Lawrence Mitchell | January 29, 2021" target=_blank rel=noopener><img src=/comp52315/svg/calendar.svg class=book-icon alt=Calendar>
+<span>January 29, 2021</span></a></div><div><a class="flex align-center" href=https://github.com/wenceorg/comp52315/edit/main/site/content//notes/measurements.md target=_blank rel=noopener><img src=/comp52315/svg/edit.svg class=book-icon alt=Edit>
 <span>Edit this page</span></a></div></div><div class="flex flex-wrap align-right"><p>© 2020&ndash; <a href=mailto:lawrence@wence.uk>Lawrence Mitchell</a> and <a href=https://www.dur.ac.uk/>Durham University</a>.</p><p><a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/><img alt="Creative Commons License" style=border-width:0 src=/comp52315/cc-by-sa.svg></a>
 This work is licensed under a <a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/>Creative
-Commons Attribution-ShareAlike 4.0 International License</a>.</p></div></footer><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><nav id=TableOfContents><ul><li><a href=#performance-measurements>Performance measurements</a><ul><li><a href=#performance-counters>Performance counters</a><ul><li><a href=#grouping-metrics>Grouping metrics</a></li><li><a href=#a-first-example>A first example</a><ul><li><a href=#scalar>Scalar</a></li><li><a href=#sse>SSE</a></li><li><a href=#avx>AVX</a></li><li><a href=#avx2>AVX2</a></li></ul></li></ul></li><li><a href=#profiling>Profiling</a></li><li><a href=#top-down-methodology>&ldquo;Top-down&rdquo; methodology</a></li></ul></li></ul></nav></aside></main></body></html>
+Commons Attribution-ShareAlike 4.0 International License</a>.</p></div></footer><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><nav id=TableOfContents><ul><li><a href=#performance-measurements>Performance measurements</a><ul><li><a href=#performance-counters>Performance counters</a><ul><li><a href=#grouping-metrics>Grouping metrics</a></li><li><a href=#a-first-example>A first example</a><ul><li><a href=#scalar>Scalar</a></li><li><a href=#sse>SSE</a></li><li><a href=#avx>AVX</a></li><li><a href=#avx2>AVX2</a></li></ul></li></ul></li><li><a href=#profiling>Profiling</a><ul><li><a href=#sample-based-profiling>Sample-based profiling</a></li><li><a href=#instrumentation-based-profiling>Instrumentation-based profiling</a></li><li><a href=#where-next>Where next</a></li></ul></li></ul></li></ul></nav></aside></main></body></html>
