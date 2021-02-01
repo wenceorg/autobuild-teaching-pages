@@ -20,12 +20,12 @@ sessions, their aim is to familiarise you with the tools we&rsquo;ll use for
 performance measurements and modelling throughout the course.</p><p>As well as the listed exercises, the notes also contain shorter
 exercises which you should attempt. We can discuss them in the live
 sessions.</p><blockquote class=exercise><h3>Exercise</h3><span>Exercises look like this.</span></blockquote><h2 id=annotated-slides>Annotated slides
-<a class=anchor href=#annotated-slides>#</a></h2><p>Slides as annotated during the live lectures</p><ul><li><a href=lecture-slides/01.pdf>Session 1</a></li><li><a href=lecture-slides/02.pdf>Session 2</a></li><li><a href=lecture-slides/03.pdf>Session 3</a>, and the <a href=lecture-slides/williams2009-roofline.pdf>roofline
-paper</a></li><li><a href=lecture-slides/04.pdf>Session 4</a>
+<a class=anchor href=#annotated-slides>#</a></h2><p>Slides as annotated during the live lectures</p><ul><li><p><a href=lecture-slides/01.pdf>Session 1</a></p></li><li><p><a href=lecture-slides/02.pdf>Session 2</a></p></li><li><p><a href=lecture-slides/03.pdf>Session 3</a>, and the <a href=lecture-slides/williams2009-roofline.pdf>roofline
+paper</a></p></li><li><p><a href=lecture-slides/04.pdf>Session 4</a>
 I got a bit confused towards the end in the exercises determining
 why likwid was reporting load counts different from those we were
 expecting. We worked this out (thanks Finlay) by the next session:
-the compiler was inlining some code and producing some extra moves.</li><li><a href=lecture-slides/05.pdf>Session 5</a></li><li><a href=lecture-slides/06.pdf>Session 6</a>
+the compiler was inlining some code and producing some extra moves.</p></li><li><p><a href=lecture-slides/05.pdf>Session 5</a></p></li><li><p><a href=lecture-slides/06.pdf>Session 6</a>
 I went over the end of the cache blocking for matrix-matrix
 multiplication again, and then we looked briefly at the performance
 we obtained on Hamilton. We then looked at how we can convince our
@@ -36,10 +36,19 @@ For GCC, we can get some reports with <code>-fopt-info</code> (see <a href=https
 page</a> and
 search for <code>-fopt-info</code>). For Clang, we can get some reports with
 <code>-Rpass=vec</code> and <code>-Rpass-missed=vec</code> (see <a href=https://clang.llvm.org/docs/UsersManual.html#options-to-emit-optimization-reports>this
-page</a>).</li></ul><h2 id=syllabus>Syllabus
+page</a>).</p></li><li><p><a href=lecture-slides/07.pdf>Session 7</a>, I also annotated one page from
+the <a href=lecture-slides/vanzee2015-blis.pdf>BLIS paper</a>.</p><p>The two articles I took examples from for the dimension-lifted
+transposition approach are <a href=https://web.cs.ucla.edu/~pouchet/doc/cc-article.11.pdf>Henretty et al. (2011), <em>Data Layout
+Transformation for Stencil Computations on Short-Vector SIMD
+Architectures</em></a>,
+and <a href=https://arxiv.org/pdf/1512.03487.pdf>Boyle et al. (2015), <em>Grid: A next generation data parallel C++
+QCD library</em></a>. One example of
+the same approach applied to unstructured problems is shown in <a href=https://arxiv.org/pdf/1903.08243.pdf>Sun
+et al. (2020), <em>A study of vectorization for matrix-free finite
+element methods</em></a>.</p></li></ul><h2 id=syllabus>Syllabus
 <a class=anchor href=#syllabus>#</a></h2><ul><li>Fundamentals of performance engineering</li><li>Tools: CPU topology and affinity</li><li>The Roofline performance model</li><li>Tools: Performance counters</li><li>Technique: Vectorisation (SIMD programming)</li><li>Technique: Data layout transformations</li></ul><h2 id=lecturer>Lecturer
-<a class=anchor href=#lecturer>#</a></h2><ul><li><a href=mailto:lawrence@wence.uk>Lawrence Mitchell</a></li></ul></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/wenceorg/comp52315/commit/5bb5ffcac0fdcbf322245f855222902330bed615 title="Last modified by Lawrence Mitchell | January 29, 2021" target=_blank rel=noopener><img src=/comp52315/svg/calendar.svg class=book-icon alt=Calendar>
-<span>January 29, 2021</span></a></div><div><a class="flex align-center" href=https://github.com/wenceorg/comp52315/edit/main/site/content//_index.md target=_blank rel=noopener><img src=/comp52315/svg/edit.svg class=book-icon alt=Edit>
+<a class=anchor href=#lecturer>#</a></h2><ul><li><a href=mailto:lawrence@wence.uk>Lawrence Mitchell</a></li></ul></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/wenceorg/comp52315/commit/b8e1babe355e7a9dbd97750bb21818bfb144b43f title="Last modified by Lawrence Mitchell | February 1, 2021" target=_blank rel=noopener><img src=/comp52315/svg/calendar.svg class=book-icon alt=Calendar>
+<span>February 1, 2021</span></a></div><div><a class="flex align-center" href=https://github.com/wenceorg/comp52315/edit/main/site/content//_index.md target=_blank rel=noopener><img src=/comp52315/svg/edit.svg class=book-icon alt=Edit>
 <span>Edit this page</span></a></div></div><div class="flex flex-wrap align-right"><p>© 2020&ndash; <a href=mailto:lawrence@wence.uk>Lawrence Mitchell</a> and <a href=https://www.dur.ac.uk/>Durham University</a>.</p><p><a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/><img alt="Creative Commons License" style=border-width:0 src=/comp52315/cc-by-sa.svg></a>
 This work is licensed under a <a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/>Creative
 Commons Attribution-ShareAlike 4.0 International License</a>.</p></div></footer><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><nav id=TableOfContents><ul><li><a href=#comp52315-performance-engineering>COMP52315: Performance Engineering</a><ul><li><a href=#course-organisation>Course Organisation</a></li><li><a href=#annotated-slides>Annotated slides</a></li><li><a href=#syllabus>Syllabus</a></li><li><a href=#lecturer>Lecturer</a></li></ul></li></ul></nav></aside></main></body></html>
