@@ -86,8 +86,31 @@ recursive functions we&rsquo;ve been writing on lists. We wrote the
 implementation of a few &ldquo;summarisation&rdquo; functions that linearly
 recurse on the list and combine the entries in some way to produce a
 result.</p><p>We then spotted a common pattern and wrote a &ldquo;fold&rdquo; function that
-abstracted this out. We&rsquo;ll start there next time.</p></li></ul></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/wenceorg/comp2221/commit/8db2ee941a97152080df11cc84b0107a811e2f5a title="Last modified by Lawrence Mitchell | February 2, 2021" target=_blank rel=noopener><img src=/comp2221/svg/calendar.svg class=book-icon alt=Calendar>
-<span>February 2, 2021</span></a></div><div><a class="flex align-center" href=https://github.com/wenceorg/comp2221/edit/main/site/content/lectures/_index.md target=_blank rel=noopener><img src=/comp2221/svg/edit.svg class=book-icon alt=Edit>
+abstracted this out. We&rsquo;ll start there next time.</p></li><li><p>2021-02-02: <a href=https://teaching.wence.uk/comp2221/slides/2020-21/Lec06a.pdf>Annotated slides</a>,
+<a href="https://durham.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e0ef9d4e-77e9-4fb7-91cd-acc300dc21cf">video</a>,
+<a href=https://teaching.wence.uk/comp2221/code/lectures/Lec07.hs>code</a></p><p>Following on from the end of last time, we introduce <code>foldr</code> and
+<code>foldl</code> and discussed how they can be seen on lists as rebuilding
+the structure with a new binary operator (instead of <code>(:)</code>) and
+termination element (instead of <code>[]</code>).</p><p>We then looked at a little bit of theory on data types, particularly
+<a href=https://en.wikipedia.org/wiki/Tagged_union>sum</a> and
+<a href=https://en.wikipedia.org/wiki/Product_type>product</a> types.
+Haskell&rsquo;s datatypes are <a href=https://en.wikipedia.org/wiki/Algebraic_data_type>Algebraic
+Datatypes</a>. I
+also pointed to this nice article on <a href=https://chadaustin.me/2015/07/sum-types/>why sum types are nice to
+have</a>.</p><p>We then defined a few more of our own data structures including a
+binary tree and a <a href=https://en.wikipedia.org/wiki/Rose_tree>rose
+tree</a> (the latter is what
+you get if you import the
+<a href=https://hackage.haskell.org/package/containers-0.6.4.1/docs/Data-Tree.html><code>Data.Tree</code></a>
+module).</p><p>We looked at the mapping pattern which lifts a function <code>a -> b</code> to
+a function between containers of <code>as</code> and <code>bs</code> (e.g. <code>[a] -> [b]</code>
+for lists), and noticed that the same pattern appears in mapping
+over lots of datatypes. To make this generic, we introduced
+Haskell&rsquo;s
+<a href=https://hackage.haskell.org/package/base-4.14.1.0/docs/Prelude.html#t:Functor><code>Functor</code></a>
+type class which implements a generic <code>fmap</code>.</p><p>We foreshadowed, but didn&rsquo;t do, an equivalent interface for
+&ldquo;foldable&rdquo; datatypes.</p></li></ul></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/wenceorg/comp2221/commit/4db45e00bd1b16fa01323c4e57bd93f46e75a673 title="Last modified by Lawrence Mitchell | February 3, 2021" target=_blank rel=noopener><img src=/comp2221/svg/calendar.svg class=book-icon alt=Calendar>
+<span>February 3, 2021</span></a></div><div><a class="flex align-center" href=https://github.com/wenceorg/comp2221/edit/main/site/content/lectures/_index.md target=_blank rel=noopener><img src=/comp2221/svg/edit.svg class=book-icon alt=Edit>
 <span>Edit this page</span></a></div></div><div class="flex flex-wrap align-right"><p>© 2021&ndash; <a href=mailto:lawrence@wence.uk>Lawrence Mitchell</a> & <a href=https://www.dur.ac.uk/>Durham University</a>.</p><p><a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/><img alt="Creative Commons License" style=border-width:0 src=/comp2221/cc-by-sa.svg></a>
 This work is licensed under a <a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/>Creative
 Commons Attribution-ShareAlike 4.0 International License</a>.</p></div></footer><label for=menu-control class="hidden book-menu-overlay"></label></div></main></body></html>
