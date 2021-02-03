@@ -13,8 +13,7 @@ schemes, and spatial discretisation.</p><h2 id=syllabus>Syllabus
 <a class=anchor href=#numerical-methods-term-1>#</a></h3><p>Topic 1: Spatial discretisation. Finite difference methods for partial differential equations (PDEs), stability, convergence, and consistency;</p><p>Topic 2: Time dependent PDEs. Stability constraints for time-dependent PDEs, connection to eigenvalue analysis;</p><p>Topic 3: Implicit ordinary differential equation (ODE) methods, and matrix representations of PDE operators;</p><p>Topic 4: Advanced algorithms for PDEs. Fast methods of solving PDEs, high order discretisation schemes.</p><h3 id=parallel-computing-term-2>Parallel Computing (Term 2)
 <a class=anchor href=#parallel-computing-term-2>#</a></h3><ul><li><p>Distributed memory programming models: <a href=https://www.mpi-forum.org>MPI</a>.</p></li><li><p>Parallel algorithms and data structures for finite difference codes.</p></li><li><p>Irregular data distribution and load-balancing.</p></li><li><p>Measurement and modelling. Analysis of achieved performance,
 performance models, including the Roofline model.</p></li></ul><h3 id=discussion-forum>Discussion forum
-<a class=anchor href=#discussion-forum>#</a></h3><p>I have set up a <a href="https://github.com/wenceorg/comp4187
-/discussions">discussion forum</a> where you
+<a class=anchor href=#discussion-forum>#</a></h3><p>I have set up a <a href=https://github.com/wenceorg/comp4187/discussions>discussion forum</a> where you
 can ask, and answer, questions. You&rsquo;ll need a
 <a href=https://github.com>GitHub</a> account to use it, but you&rsquo;ve all got one
 of those already, right? Note that this repository and forum is
@@ -53,13 +52,24 @@ simulation</em></a>, it goes
 into more details of what I was discussing the lecture with regards
 to turning machine and computational models into models for scaling.
 I&rsquo;ll cover a little more of it next week, so if you have time to
-skim through that would be great.</p></li></ul><h2 id=lecturers>Lecturers
+skim through that would be great.</p></li><li><p>2021-02-03: <a href=https://teaching.wence.uk/comp4187/parallel/2020-21/lec04.pdf>Scribbles</a>,
+<a href="https://durham.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=dc7a8f75-b76d-4f5d-95e9-acc400a73ecb">video</a></p><p>We looked at some results from the ping-pong code we wrote last
+time, and then discussed the idea that the reason we can have a hope
+of solving PDEs in parallel is that we have <em>sparse</em>
+representations. So we don&rsquo;t need to do alltoall communication and
+computation. We then started on how might divide the work on our
+grids up between parallel processes, with a goal of having
+$\frac{N}{P}$ work per process and (hopefully) at worst
+$\mathcal{O}(\log P)$ algorithmic, memory footprint, or
+message-passing complexity as a function of the number of processes.
+I tried to motivate why this is a reasonable goal for multigrid
+solvers.</p></li></ul><h2 id=lecturers>Lecturers
 <a class=anchor href=#lecturers>#</a></h2><p><a href=mailto:anne.k.reinarz@durham.ac.uk>Anne Reinarz</a></p><p><a href=mailto:lawrence.mitchell@durham.ac.uk>Lawrence Mitchell</a></p><p>The course will be taught over both Term 1 and 2, and assessed by a single piece of coursework due in Term 3.</p><p>Lecture slots are at 9am on Wednesday mornings. These will be run over
 Zoom (you will need to be logged in with your Durham credentials)</p><p><a href="https://durhamuniversity.zoom.us/j/96513562625?pwd=ZGxySUhwc0hPOEV1YW1TT0sxM3lWUT09">https://durhamuniversity.zoom.us/j/96513562625?pwd=ZGxySUhwc0hPOEV1YW1TT0sxM3lWUT09</a></p><p>Meeting ID: 965 1356 2625
 Passcode: 506890</p><p>A calendar subscription is available from
 <a href=https://tinyurl.com/comp4187-ics>https://tinyurl.com/comp4187-ics</a>.</p><h2 id=reading>Reading
-<a class=anchor href=#reading>#</a></h2><p>Recommended:</p><p>LeVeque, Finite Difference Methods for Ordinary and Partial Differential Equations, SIAM (2007).</p><p>Optional:</p><p>Iserles, A first course in the numerical analysis of differential equations, Cambridge Texts in Applied Mathematics (2009).</p></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/wenceorg/comp4187/commit/f027cc37f94e3de91ea36c9e7c97375db6cb982a title="Last modified by Lawrence Mitchell | January 27, 2021" target=_blank rel=noopener><img src=/comp4187/svg/calendar.svg class=book-icon alt=Calendar>
-<span>January 27, 2021</span></a></div><div><a class="flex align-center" href=https://github.com/wenceorg/comp4187/edit/master/site/content/_index.md target=_blank rel=noopener><img src=/comp4187/svg/edit.svg class=book-icon alt=Edit>
+<a class=anchor href=#reading>#</a></h2><p>Recommended:</p><p>LeVeque, Finite Difference Methods for Ordinary and Partial Differential Equations, SIAM (2007).</p><p>Optional:</p><p>Iserles, A first course in the numerical analysis of differential equations, Cambridge Texts in Applied Mathematics (2009).</p></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/wenceorg/comp4187/commit/43dc7a7d30dc1229d70a6988442bc279d61fb736 title="Last modified by Lawrence Mitchell | February 3, 2021" target=_blank rel=noopener><img src=/comp4187/svg/calendar.svg class=book-icon alt=Calendar>
+<span>February 3, 2021</span></a></div><div><a class="flex align-center" href=https://github.com/wenceorg/comp4187/edit/master/site/content/_index.md target=_blank rel=noopener><img src=/comp4187/svg/edit.svg class=book-icon alt=Edit>
 <span>Edit this page</span></a></div></div><div class="flex flex-wrap align-right"><p>© 2020&ndash; <a href=mailto:lawrence@wence.uk>Lawrence Mitchell</a>, <a href=https://annereinarz.github.io>Anne Reinarz</a> & <a href=https://www.dur.ac.uk/>Durham University</a>.</p><p><a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/><img alt="Creative Commons License" style=border-width:0 src=/comp4187/cc-by-sa.svg></a>
 This work is licensed under a <a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/>Creative
 Commons Attribution-ShareAlike 4.0 International License</a>.</p></div></footer><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><nav id=TableOfContents><ul><li><a href=#comp4187-parallel-scientific-computing-ii>COMP4187: Parallel Scientific Computing II</a><ul><li><a href=#syllabus>Syllabus</a><ul><li><a href=#numerical-methods-term-1>Numerical Methods (Term 1)</a></li><li><a href=#parallel-computing-term-2>Parallel Computing (Term 2)</a></li><li><a href=#discussion-forum>Discussion forum</a></li><li><a href=#office-hours>Office hours</a></li><li><a href=#lecture-scribblings-and-video-links>Lecture scribblings and video links</a></li></ul></li><li><a href=#lecturers>Lecturers</a></li><li><a href=#reading>Reading</a></li></ul></li></ul></nav></aside></main></body></html>
