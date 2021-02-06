@@ -109,8 +109,22 @@ over lots of datatypes. To make this generic, we introduced
 Haskell&rsquo;s
 <a href=https://hackage.haskell.org/package/base-4.14.1.0/docs/Prelude.html#t:Functor><code>Functor</code></a>
 type class which implements a generic <code>fmap</code>.</p><p>We foreshadowed, but didn&rsquo;t do, an equivalent interface for
-&ldquo;foldable&rdquo; datatypes.</p></li></ul></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/wenceorg/comp2221/commit/4db45e00bd1b16fa01323c4e57bd93f46e75a673 title="Last modified by Lawrence Mitchell | February 3, 2021" target=_blank rel=noopener><img src=/comp2221/svg/calendar.svg class=book-icon alt=Calendar>
-<span>February 3, 2021</span></a></div><div><a class="flex align-center" href=https://github.com/wenceorg/comp2221/edit/main/site/content/lectures/_index.md target=_blank rel=noopener><img src=/comp2221/svg/edit.svg class=book-icon alt=Edit>
+&ldquo;foldable&rdquo; datatypes.</p></li><li><p>2021-02-04: <a href=https://teaching.wence.uk/comp2221/slides/2020-21/Lec07.pdf>Annotated slides</a>,
+<a href="https://durham.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=a380fb7b-8c34-421f-8170-acc500dc51e0">video</a>,
+<a href=https://teaching.wence.uk/comp2221/code/lectures/Lec08.hs>code</a></p><p>We looked at examples of containers that are not functorial. Then we
+looked at building <code>Foldable</code> instances for some datatypes. GHC can
+actually derive these for you (and <code>Functor</code> instances) if you add</p><div class=highlight><pre style=color:#272822;background-color:#fafafa><code class=language-hs data-lang=hs><span style=color:#75715e>{-# LANGUAGE DeriveFunctor #-}</span>
+<span style=color:#75715e>{-# LANGUAGE DeriveFoldable #-}</span>
+</code></pre></div><p>at the top of your files. It&rsquo;s useful to think about to understand
+what is going on though.</p><p>We then went through some slides on lazy evaluation, and we looked
+at the difference between the call-by-value of <em>eager</em> languages and
+call-by-name of <em>lazy</em> languages (like Haskell). We just about got
+on to sharing of expression evaluation.</p><p>At the end of the lecture someone asked for another explanation of
+the <code>Maybe</code> datatype, and why it might be useful. So I went through
+that (there&rsquo;s about 5 or so minutes). There&rsquo;s a brief explanation of
+the usefulness in the section &ldquo;Sum types are general&rdquo; of [this
+post](Sum Types are General).</p></li></ul></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/wenceorg/comp2221/commit/ad8762cdc168e1fc132a8491f566800a8820e664 title="Last modified by Lawrence Mitchell | February 6, 2021" target=_blank rel=noopener><img src=/comp2221/svg/calendar.svg class=book-icon alt=Calendar>
+<span>February 6, 2021</span></a></div><div><a class="flex align-center" href=https://github.com/wenceorg/comp2221/edit/main/site/content/lectures/_index.md target=_blank rel=noopener><img src=/comp2221/svg/edit.svg class=book-icon alt=Edit>
 <span>Edit this page</span></a></div></div><div class="flex flex-wrap align-right"><p>© 2021&ndash; <a href=mailto:lawrence@wence.uk>Lawrence Mitchell</a> & <a href=https://www.dur.ac.uk/>Durham University</a>.</p><p><a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/><img alt="Creative Commons License" style=border-width:0 src=/comp2221/cc-by-sa.svg></a>
 This work is licensed under a <a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/>Creative
 Commons Attribution-ShareAlike 4.0 International License</a>.</p></div></footer><label for=menu-control class="hidden book-menu-overlay"></label></div></main></body></html>
