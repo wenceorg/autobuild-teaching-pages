@@ -123,8 +123,61 @@ on to sharing of expression evaluation.</p><p>At the end of the lecture someone 
 the <code>Maybe</code> datatype, and why it might be useful. So I went through
 that (there&rsquo;s about 5 or so minutes). There&rsquo;s a brief explanation of
 the usefulness in the section &ldquo;Sum types are general&rdquo; of [this
-post](Sum Types are General).</p></li></ul></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/wenceorg/comp2221/commit/61db18c16af1f104e6768f0b87655275bff1b930 title="Last modified by Lawrence Mitchell | February 8, 2021" target=_blank rel=noopener><img src=/comp2221/svg/calendar.svg class=book-icon alt=Calendar>
-<span>February 8, 2021</span></a></div><div><a class="flex align-center" href=https://github.com/wenceorg/comp2221/edit/main/site/content/lectures/_index.md target=_blank rel=noopener><img src=/comp2221/svg/edit.svg class=book-icon alt=Edit>
+post](Sum Types are General).</p></li><li><p>2021-02-09: Annotated slides (<a href=https://teaching.wence.uk/comp2221/slides/2020-21/Lec07a.pdf>lazy eval</a>, <a href=https://teaching.wence.uk/comp2221/slides/2020-21/Lec08.pdf>IO</a>),
+<a href="https://durham.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=798b939c-ed53-4974-8d8f-acca00db13bf">video</a>,
+<a href=https://teaching.wence.uk/comp2221/code/lectures/Lec09.hs>code</a></p><p>There wasn&rsquo;t actually a lot of code today. I talked a little bit
+about how Haskell evaluates expression graphs. Then how we might do
+strict (eager) evaluation with <code>($!)</code>. We had a question on whether
+GHC would optimise the difference between lazy and strict
+expressions, and I thought it wouldn&rsquo;t. We can check this with a bit
+of profiling.</p><div class=book-include><div class=book-include-heading><tt>strictvslazy.hs</tt></div><div class=book-include-download><a href=https://teaching.wence.uk/comp2221/code/strictvslazy.hs>Download</a></div><div class=book-include-content><div class=highlight><pre style=color:#272822;background-color:#fafafa><code class=language-hs data-lang=hs><span style=color:#00a8c8>module</span> <span style=color:#111>Main</span> <span style=color:#00a8c8>where</span>
+<span style=color:#00a8c8>import</span> <span style=color:#111>Data.Foldable</span> <span style=color:#111>(</span><span style=color:#75af00>foldr&#39;</span><span style=color:#111>,</span> <span style=color:#75af00>foldl&#39;</span><span style=color:#111>)</span>
+
+<span style=color:#75af00>main</span> <span style=color:#f92672>::</span> <span style=color:#00a8c8>IO</span> <span style=color:#111>()</span>
+<span style=color:#75af00>main</span> <span style=color:#f92672>=</span> <span style=color:#00a8c8>do</span>
+  <span style=color:#00a8c8>let</span> <span style=color:#111>xs</span> <span style=color:#f92672>=</span> <span style=color:#111>replicate</span> <span style=color:#111>(</span><span style=color:#ae81ff>10</span><span style=color:#f92672>^</span><span style=color:#ae81ff>7</span> <span style=color:#f92672>::</span> <span style=color:#00a8c8>Int</span><span style=color:#111>)</span> <span style=color:#111>(</span><span style=color:#ae81ff>1</span> <span style=color:#f92672>::</span> <span style=color:#00a8c8>Int</span><span style=color:#111>)</span>
+  <span style=color:#111>print</span> <span style=color:#d88200>&#34;Computing last&#34;</span>
+  <span style=color:#111>print</span> <span style=color:#f92672>$</span> <span style=color:#75715e>{-# SCC last_xs #-}</span> <span style=color:#111>last</span> <span style=color:#111>xs</span>
+  <span style=color:#111>print</span> <span style=color:#d88200>&#34;Computing length&#34;</span>
+  <span style=color:#111>print</span> <span style=color:#f92672>$</span> <span style=color:#75715e>{-# SCC length_xs #-}</span> <span style=color:#111>length</span> <span style=color:#111>xs</span>
+  <span style=color:#111>print</span> <span style=color:#d88200>&#34;lazy foldr&#34;</span>
+  <span style=color:#111>print</span> <span style=color:#f92672>$</span> <span style=color:#75715e>{-# SCC foldr_lazy #-}</span> <span style=color:#111>foldr</span> <span style=color:#111>(</span><span style=color:#f92672>+</span><span style=color:#111>)</span> <span style=color:#ae81ff>0</span> <span style=color:#111>xs</span>
+  <span style=color:#111>print</span> <span style=color:#d88200>&#34;strict foldr&#39;&#34;</span>
+  <span style=color:#111>print</span> <span style=color:#f92672>$</span> <span style=color:#75715e>{-# SCC foldr_strict #-}</span> <span style=color:#111>foldr&#39;</span> <span style=color:#111>(</span><span style=color:#f92672>+</span><span style=color:#111>)</span> <span style=color:#ae81ff>0</span> <span style=color:#111>xs</span>
+  <span style=color:#111>print</span> <span style=color:#d88200>&#34;lazy foldl&#34;</span>
+  <span style=color:#111>print</span> <span style=color:#f92672>$</span> <span style=color:#75715e>{-# SCC foldl_lazy #-}</span> <span style=color:#111>foldl</span> <span style=color:#111>(</span><span style=color:#f92672>+</span><span style=color:#111>)</span> <span style=color:#ae81ff>0</span> <span style=color:#111>xs</span>
+  <span style=color:#111>print</span> <span style=color:#d88200>&#34;strict foldl&#34;</span>
+  <span style=color:#111>print</span> <span style=color:#f92672>$</span> <span style=color:#75715e>{-# SCC foldl_strict #-}</span> <span style=color:#111>foldl&#39;</span> <span style=color:#111>(</span><span style=color:#f92672>+</span><span style=color:#111>)</span> <span style=color:#ae81ff>0</span> <span style=color:#111>xs</span>  
+</code></pre></div></div></div><p>GHC has some facility for
+<a href=https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/profiling.html>profiling</a>
+built in. So if I invoke the relevant magic incantations and run the
+program I get a <code>strictvslazy.prof</code> output file that includes</p><pre><code>      Tue Feb  9 17:55 2021 Time and Allocation Profiling Report  (Final)
+
+     strictvslazy +RTS -P -V0.0001 -RTS
+
+  total time  =        0.43 secs   (4302 ticks @ 100 us, 1 processor)
+  total alloc = 880,079,712 bytes  (excludes profiling overheads)
+
+ COST CENTRE  MODULE SRC                       %time %alloc  ticks     bytes
+
+ foldr_strict Main   strictvslazy.hs:14:36-50   27.8   45.5   1194 400000000
+ foldr_lazy   Main   strictvslazy.hs:12:34-47   24.4    0.0   1050        16
+ main.xs      Main   strictvslazy.hs:6:7-45     15.3   54.5    659 480000032
+ foldl_lazy   Main   strictvslazy.hs:16:34-47   10.7    0.0    459        16
+ foldl_strict Main   strictvslazy.hs:18:36-50   10.4    0.0    449        16
+ length_xs    Main   strictvslazy.hs:10:33-41    7.6    0.0    329         0
+ last_xs      Main   strictvslazy.hs:8:31-37     3.7    0.0    161        16
+</code></pre><p>So it seems an appropriate optimisation is being done in this case
+for the lazy vs. strict versions of <code>foldl</code>, but not for <code>foldr</code>
+(although note that the strict version churns through a lot of
+memory).</p><p>For most of the rest of the session we covered input/output and the
+type <code>IO a</code>. The main takeaway here is that we have to wrap these
+impure &ldquo;actions&rdquo; up so that we don&rsquo;t break purity and referential
+transparency in the language.</p><p>We introduced <code>do</code> notation for peeking inside actions.</p><p>I didn&rsquo;t get to it, but the slides develop a simple &ldquo;hangman&rdquo;
+program that demonstrates some composition of IO actions. This is
+modified slightly from an example in <a href>Graham Hutton&rsquo;s book</a> and the code
+is available in <a href=https://teaching.wence.uk/comp2221/code/lectures/hangman.hs><code>code/lectures/hangman.hs</code></a></p></li></ul></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/wenceorg/comp2221/commit/f27d27021a6381c52ac6caaf3bbff21423f7045d title="Last modified by Lawrence Mitchell | February 9, 2021" target=_blank rel=noopener><img src=/comp2221/svg/calendar.svg class=book-icon alt=Calendar>
+<span>February 9, 2021</span></a></div><div><a class="flex align-center" href=https://github.com/wenceorg/comp2221/edit/main/site/content/lectures/_index.md target=_blank rel=noopener><img src=/comp2221/svg/edit.svg class=book-icon alt=Edit>
 <span>Edit this page</span></a></div></div><div class="flex flex-wrap align-right"><p>© 2021&ndash; <a href=mailto:lawrence@wence.uk>Lawrence Mitchell</a> & <a href=https://www.dur.ac.uk/>Durham University</a>.</p><p><a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/><img alt="Creative Commons License" style=border-width:0 src=/comp2221/cc-by-sa.svg></a>
 This work is licensed under a <a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/>Creative
 Commons Attribution-ShareAlike 4.0 International License</a>.</p></div></footer><label for=menu-control class="hidden book-menu-overlay"></label></div></main></body></html>
