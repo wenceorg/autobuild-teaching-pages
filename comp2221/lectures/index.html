@@ -3,7 +3,7 @@
 We got about halfway through the slides, we&rsquo;ll pick up where we left off next time.
   2021-01-14: Annotated slides, video, code
 We went through the remainder of the slides from Tuesday."><meta name=theme-color content="#FFFFFF"><meta property="og:title" content="Annotated slides"><meta property="og:description" content><meta property="og:type" content="website"><meta property="og:url" content="https://teaching.wence.uk/comp2221/lectures/"><title>Annotated slides | COMP2221 – Functional Programming</title><link rel=manifest href=/comp2221/manifest.json><link rel=icon href=/comp2221/favicon.png type=image/x-icon><link rel=stylesheet href=/comp2221/book.min.0cb0b7d6a1ed5d0e95321cc15edca4d6e9cc406149d1f4a3f25fd532f6a3bb38.css integrity="sha256-DLC31qHtXQ6VMhzBXtyk1unMQGFJ0fSj8l/VMvajuzg="></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
-<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><nav><div class=book-brand><img class=book-center src=/comp2221/logo.svg alt=Logo><h2><a href=/comp2221>COMP2221 – Functional Programming</a></h2></div><ul><li><a href=/comp2221/setup/>Setup</a><ul></ul></li><li><a href=/comp2221/exercises/>Exercises</a><ul><li><a href=/comp2221/exercises/exercise1/>Hello, World!</a></li><li><a href=/comp2221/exercises/exercise2/>Types and lists</a></li><li><a href=/comp2221/exercises/exercise3/>List manipulation and sorting</a></li><li><a href=/comp2221/exercises/exercise4/>Lazy evaluation and infinite datastructures</a></li><li><a href=/comp2221/exercises/exercise5/>Folds and function composition</a></li><li><a href=/comp2221/exercises/exercise6/>Some classic data structures</a></li></ul></li><li><a href=/comp2221/lectures/ class=active>Annotated slides</a><ul></ul></li></ul></nav><script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/comp2221/svg/menu.svg class=book-icon alt=Menu></label>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><nav><div class=book-brand><img class=book-center src=/comp2221/logo.svg alt=Logo><h2><a href=/comp2221>COMP2221 – Functional Programming</a></h2></div><ul><li><a href=/comp2221/setup/>Setup</a><ul></ul></li><li><a href=/comp2221/exercises/>Exercises</a><ul><li><a href=/comp2221/exercises/exercise1/>Hello, World!</a></li><li><a href=/comp2221/exercises/exercise2/>Types and lists</a></li><li><a href=/comp2221/exercises/exercise3/>List manipulation and sorting</a></li><li><a href=/comp2221/exercises/exercise4/>Lazy evaluation and infinite datastructures</a></li><li><a href=/comp2221/exercises/exercise5/>Folds and function composition</a></li><li><a href=/comp2221/exercises/exercise6/>Some classic data structures</a></li><li><a href=/comp2221/exercises/exercise7/>Another mini expression evaluator</a></li></ul></li><li><a href=/comp2221/lectures/ class=active>Annotated slides</a><ul></ul></li></ul></nav><script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/comp2221/svg/menu.svg class=book-icon alt=Menu></label>
 <strong>Annotated slides</strong>
 <label for=toc-control></label></div></header><article class=markdown><h1 id=lecture-slides-and-video-links>Lecture slides and video links
 <a class=anchor href=#lecture-slides-and-video-links>#</a></h1><p>As the course progresses, I&rsquo;ll upload lecture slides, the live code
@@ -176,8 +176,41 @@ impure &ldquo;actions&rdquo; up so that we don&rsquo;t break purity and referent
 transparency in the language.</p><p>We introduced <code>do</code> notation for peeking inside actions.</p><p>I didn&rsquo;t get to it, but the slides develop a simple &ldquo;hangman&rdquo;
 program that demonstrates some composition of IO actions. This is
 modified slightly from an example in <a href>Graham Hutton&rsquo;s book</a> and the code
-is available in <a href=https://teaching.wence.uk/comp2221/code/lectures/hangman.hs><code>code/lectures/hangman.hs</code></a></p></li></ul></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/wenceorg/comp2221/commit/f27d27021a6381c52ac6caaf3bbff21423f7045d title="Last modified by Lawrence Mitchell | February 9, 2021" target=_blank rel=noopener><img src=/comp2221/svg/calendar.svg class=book-icon alt=Calendar>
-<span>February 9, 2021</span></a></div><div><a class="flex align-center" href=https://github.com/wenceorg/comp2221/edit/main/site/content/lectures/_index.md target=_blank rel=noopener><img src=/comp2221/svg/edit.svg class=book-icon alt=Edit>
+is available in <a href=https://teaching.wence.uk/comp2221/code/lectures/hangman.hs><code>code/lectures/hangman.hs</code></a></p></li><li><p>2021-02-11: <a href=https://teaching.wence.uk/comp2221/slides/2020-21/Lec10.pdf>Handwritten slides</a>,
+<a href="https://durham.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=cc5f85e3-2586-4ef7-9adf-accc00db2388">video</a>,
+<a href=https://teaching.wence.uk/comp2221/code/lectures/Lec10.lean>code</a></p><p>We recapped the concept of reducible expressions with an example of
+an expression graph with reducible and irreducible bits.</p><p>I talked for a while about what I thought the important and
+interesting concepts were that we covered through the course. I
+mentioned <a href=https://www.rust-lang.org>Rust</a> again, when talking
+about compile-time correct APIs for communication and cryptographic
+protocols. If you&rsquo;re interested, here&rsquo;s a nice article about the
+<a href=http://cliffle.com/blog/rust-typestate/>typestate pattern</a> that&rsquo;s
+a concrete realisation of this idea. Aside: I think Rust is an
+excellent language to try and come to grips with if you like
+slightly &ldquo;low-level&rdquo; programming.</p><p>I showed an example in the
+<a href=https://leanprover-community.github.io>Lean</a> theorem prover of
+proving the Functor laws for <code>map</code> on a list. I don&rsquo;t expect you to
+know any Lean really, but hopefully it was interesting.</p><p>We also talked a bit about the exam in the summer. The major change
+is that there won&rsquo;t be any bookwork questions. I will summarise
+those questions from past papers that I think are relevant for
+looking at. The paper will have 2 questions predominantly on the
+Haskell part of the course (and 2 on the OO part). In each case
+there will be one question worth in total 30 marks, and a &ldquo;short
+essay&rdquo; question worth 20 marks. The idea is that you show some
+understanding of the programming aspect, and then also synthesis of
+concepts. I will prepare a model paper (since none of the past
+papers have essay questions in them) before the end of term.</p><p>There&rsquo;ll be some revision lectures at the start of Term 3, so look
+out for those.</p><p>There were some questions about pointers to bigger programs in
+Haskell. For self-contained things, you might look at the Imperial
+<a href=http://wp.doc.ic.ac.uk/ajf/haskell-tests/>January Haskell tests</a>.
+For bigger things you might start at the <a href=https://wiki.haskell.org/Applications_and_libraries>Haskell
+wiki</a>. One
+thing to note is that lots of the libraries in the wild will use
+more advanced features than we saw in the course (but maybe that&rsquo;s
+helpful).</p><p>Finally, please do fill out the <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=i9hQcmhLKUW-RNWaLYpvlH6j_ORl2wpMpbvCR6TejgNUNU5HMkk0TDFGQTNKMTRTVTJFRlNCSjQwNi4u">anonymous feedback
+form</a>
+if you have any comments (preferably constructive) on the course.</p></li></ul></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/wenceorg/comp2221/commit/78131618b3b04e7ec020686a279d0030df7bea3e title="Last modified by Lawrence Mitchell | February 11, 2021" target=_blank rel=noopener><img src=/comp2221/svg/calendar.svg class=book-icon alt=Calendar>
+<span>February 11, 2021</span></a></div><div><a class="flex align-center" href=https://github.com/wenceorg/comp2221/edit/main/site/content/lectures/_index.md target=_blank rel=noopener><img src=/comp2221/svg/edit.svg class=book-icon alt=Edit>
 <span>Edit this page</span></a></div></div><div class="flex flex-wrap align-right"><p>© 2021&ndash; <a href=mailto:lawrence@wence.uk>Lawrence Mitchell</a> & <a href=https://www.dur.ac.uk/>Durham University</a>.</p><p><a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/><img alt="Creative Commons License" style=border-width:0 src=/comp2221/cc-by-sa.svg></a>
 This work is licensed under a <a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/>Creative
 Commons Attribution-ShareAlike 4.0 International License</a>.</p></div></footer><label for=menu-control class="hidden book-menu-overlay"></label></div></main></body></html>
