@@ -107,7 +107,7 @@ SSDs</a>,
 which are touted as a real step forward in disk technology, and
 notice that we&rsquo;ve had interconnects with lower latency than modern
 SSDs since <em>1990</em>.</p><p>Next time we&rsquo;ll do some more hands on stuff and sketch some code
-for multi-level algorithms in MPI.</p></li><li><p>2021-02-24: <a href=https://teaching.wence.uk/comp4187/parallel/2020-21/lec07.pdf>Scribbles (quite short)</a>, <a href=https://teaching.wence.uk/comp4187/code/parallel/live/Lec07.py>code</a>
+for multi-level algorithms in MPI.</p></li><li><p>2021-02-24: <a href=https://teaching.wence.uk/comp4187/parallel/2020-21/lec07.pdf>Scribbles (quite short)</a>, <a href=https://teaching.wence.uk/comp4187/code/parallel/live/Lec07.py>code</a>,
 <a href="https://durham.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=2e211aac-bc6e-4d75-ac62-acda00b4ba0b">video</a></p><p>I introduced what we&rsquo;re doing for the coursework, a <a href=https://teaching.wence.uk/comp4187/coursework/>candidate</a> is available, which may get minor textual
 edits after checking but is basically complete. We will be using
 <a href=https://classroom.github.com>github classroom</a> to manage the code
@@ -132,14 +132,26 @@ everyone is done setting values, there&rsquo;s a split-phase communication
 round with <code>vec.assemblyBegin()</code> followed by <code>vec.assemblyEnd()</code>.
 After the latter call, the <code>Vec</code> contains the new values and is
 ready to be used again.</p><p>See the <a href=https://teaching.wence.uk/comp4187/code/parallel/live/Lec07.py>commented code</a>
-for more details.</p></li></ul><h2 id=lecturers>Lecturers
+for more details.</p></li><li><p>2021-03-03: <a href=https://teaching.wence.uk/comp4187/parallel/2020-21/lec07.pdf>Scribbles</a>,
+<a href=https://teaching.wence.uk/comp4187/code/parallel/live/Lec08.py>code</a>,
+<a href="https://durham.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=8189711a-b11b-4018-a694-ace000ab310c">video</a>,</p><p>We discussed sparse matrices, and a little bit about sparse matrix
+formats. I (somewhat informally) defined what we mean by a sparse
+matrix. We also briefly looked at how sparse matrices are
+distributed in parallel. This is interesting when we think about
+operations involving matrices and vectors, particularly we need that
+the parallel decomposition is <em>compatible</em> (PETSc will complain if
+not). Matrices, representing finite dimensional linear operators,
+are encapsulated in the PETSc
+<a href=https://www.mcs.anl.gov/petsc/petsc-current/docs/manualpages/Mat/index.html><code>Mat</code></a>
+object. The PETSc manual also has <a href=https://docs.petsc.org/en/latest/manual/mat/>a
+section</a> on them.</p><p>Some example usage is shown in the <a href=https://teaching.wence.uk/comp4187/code/parallel/live/Lec08.py>commented code</a>.</p></li></ul><h2 id=lecturers>Lecturers
 <a class=anchor href=#lecturers>#</a></h2><p><a href=mailto:anne.k.reinarz@durham.ac.uk>Anne Reinarz</a></p><p><a href=mailto:lawrence.mitchell@durham.ac.uk>Lawrence Mitchell</a></p><p>The course will be taught over both Term 1 and 2, and assessed by a
 single piece of coursework due in Term 3.</p><p>Lecture slots are at 9am on Wednesday mornings. These will be run over
 Zoom (you will need to be logged in with your Durham credentials)</p><p><a href="https://durhamuniversity.zoom.us/j/96513562625?pwd=ZGxySUhwc0hPOEV1YW1TT0sxM3lWUT09">https://durhamuniversity.zoom.us/j/96513562625?pwd=ZGxySUhwc0hPOEV1YW1TT0sxM3lWUT09</a></p><p>Meeting ID: 965 1356 2625
 Passcode: 506890</p><p>A calendar subscription is available from
 <a href=https://tinyurl.com/comp4187-ics>https://tinyurl.com/comp4187-ics</a>.</p><h2 id=reading>Reading
-<a class=anchor href=#reading>#</a></h2><p>Recommended:</p><p>LeVeque, Finite Difference Methods for Ordinary and Partial Differential Equations, SIAM (2007).</p><p>Optional:</p><p>Iserles, A first course in the numerical analysis of differential equations, Cambridge Texts in Applied Mathematics (2009).</p></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/wenceorg/comp4187/commit/183a7b2c7d8cae8f1dcbbdc32e5b8adf4b72ede1 title="Last modified by Lawrence Mitchell | February 25, 2021" target=_blank rel=noopener><img src=/comp4187/svg/calendar.svg class=book-icon alt=Calendar>
-<span>February 25, 2021</span></a></div><div><a class="flex align-center" href=https://github.com/wenceorg/comp4187/edit/master/site/content/_index.md target=_blank rel=noopener><img src=/comp4187/svg/edit.svg class=book-icon alt=Edit>
+<a class=anchor href=#reading>#</a></h2><p>Recommended:</p><p>LeVeque, Finite Difference Methods for Ordinary and Partial Differential Equations, SIAM (2007).</p><p>Optional:</p><p>Iserles, A first course in the numerical analysis of differential equations, Cambridge Texts in Applied Mathematics (2009).</p></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/wenceorg/comp4187/commit/f0c7da3d42a3a78ef81a7eae67700f31920e1cfb title="Last modified by Lawrence Mitchell | March 3, 2021" target=_blank rel=noopener><img src=/comp4187/svg/calendar.svg class=book-icon alt=Calendar>
+<span>March 3, 2021</span></a></div><div><a class="flex align-center" href=https://github.com/wenceorg/comp4187/edit/master/site/content/_index.md target=_blank rel=noopener><img src=/comp4187/svg/edit.svg class=book-icon alt=Edit>
 <span>Edit this page</span></a></div></div><div class="flex flex-wrap align-right"><p>© 2020&ndash; <a href=mailto:lawrence@wence.uk>Lawrence Mitchell</a>, <a href=https://annereinarz.github.io>Anne Reinarz</a> & <a href=https://www.dur.ac.uk/>Durham University</a>.</p><p><a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/><img alt="Creative Commons License" style=border-width:0 src=/comp4187/cc-by-sa.svg></a>
 This work is licensed under a <a rel=license href=http://creativecommons.org/licenses/by-sa/4.0/>Creative
 Commons Attribution-ShareAlike 4.0 International License</a>.</p></div></footer><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><nav id=TableOfContents><ul><li><a href=#comp4187-parallel-scientific-computing-ii>COMP4187: Parallel Scientific Computing II</a><ul><li><a href=#syllabus>Syllabus</a><ul><li><a href=#numerical-methods-term-1>Numerical Methods (Term 1)</a></li><li><a href=#parallel-computing-term-2>Parallel Computing (Term 2)</a></li><li><a href=#discussion-forum>Discussion forum</a></li><li><a href=#office-hours>Office hours</a></li><li><a href=#lecture-scribblings-and-video-links>Lecture scribblings and video links</a></li></ul></li><li><a href=#lecturers>Lecturers</a></li><li><a href=#reading>Reading</a></li></ul></li></ul></nav></aside></main></body></html>
